@@ -1,4 +1,4 @@
-name: Build client, firmware and code
+name: Build and release
 
 env:
   CI: false
