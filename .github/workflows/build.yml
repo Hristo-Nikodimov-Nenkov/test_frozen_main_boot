@@ -10,7 +10,7 @@ on:
       - main
 
 jobs:
-  build-client-and-firmware:
+  build-and-release:
     runs-on: ubuntu-latest
 
     steps:
@@ -46,6 +46,7 @@ jobs:
             -e PORT="${{vars.PORT}}" \
             -e BOARD="${{vars.BOARD}}" \
             -e FREEZE_MAIN="${{vars.FREEZE_MAIN}}" \
+            -e FREEZE_BOOT="${{vars.FREEZE_BOOT}}" \
             -v ${{github.workspace}}:/project \
             rav3nh01m/micropython:${{steps.docker_tag.outputs.image_tag}}
 
