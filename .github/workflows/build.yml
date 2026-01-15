@@ -42,7 +42,7 @@ jobs:
       - name: Run MicroPython build container
         run: |
           docker run --rm \
-            -e PROJECT_DIR:/project \
+            -e PROJECT_DIR="/project" \
             -e PORT="${{vars.PORT}}" \
             -e BOARD="${{vars.BOARD}}" \
             -e FREEZE_MAIN="${{vars.FREEZE_MAIN}}" \
