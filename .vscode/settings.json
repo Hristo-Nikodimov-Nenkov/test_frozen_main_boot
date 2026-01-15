@@ -1,0 +1,30 @@
+{
+  "python.analysis.extraPaths": [
+    "./lib",
+    "./modules",
+    "micropython-stdlib-stubs-1.26.0.post3"
+  ],
+  "python.analysis.typeshedPaths": [
+    "micropython-stdlib-stubs-1.26.0.post3"
+  ],
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingModuleSource": "none"
+  },
+  "micropico.syncFolder": "",
+  "micropico.additionalSyncFolders": [],
+  "micropico.pyIgnore": [
+    "**/.git",
+    "**/.github",
+    "**/.vscode",
+    "**/env",
+    "**/venv",
+    "**/__pycache__",
+    "**/modules"
+  ],
+  "micropico.syncFileTypes": [
+    "py",
+    "mpy",
+    "json"
+  ],
+  "micropico.syncAllFileTypes": false
+}
