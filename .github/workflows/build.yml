@@ -39,10 +39,17 @@ jobs:
 
           echo "image_tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
+      - name: Get runner UID and GID
+        id: runner_ids
+        run: |
+          echo "uid=$(id -u)" >> "$GITHUB_OUTPUT"
+          echo "gid=$(id -g)" >> "$GITHUB_OUTPUT"
+
       - name: Run MicroPython build container
         run: |
           docker run --rm \
-            --user 1001:1001 \
+            -e HOST_UID=${{ steps.runner_ids.outputs.uid }} \
+            -e HOST_GID=${{ steps.runner_ids.outputs.gid }} \          
             -e PROJECT_DIR=/project \
             -e PORT=${{ vars.PORT }} \
             -e BOARD=${{ vars.BOARD }} \
