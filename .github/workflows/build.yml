@@ -60,7 +60,7 @@ jobs:
 
       - name: Copy firmware UF2
         run: |
-          cp ./firmware/dist/firmware.uf2 ./release/firmware-v${{env.BUILD_VERSION}}.uf2
+          cp ./dist/firmware.uf2 ./release/firmware-v${{env.BUILD_VERSION}}.uf2
 
       - name: Create firmware zip
         working-directory: ./release
@@ -68,54 +68,35 @@ jobs:
 
       - name: Clean firmware modules & manifest
         run: |
-          rm -rf ./firmware/modules
-          rm -f ./firmware/manifest.py
-
-      - name: Set code version
-        working-directory: ./firmware/config
-        run: |
-          jq ".code_version = \"${{env.BUILD_VERSION}}\"" controller.json > temp.json \
-          && mv temp.json controller.json
+          rm -rf ./modules
+          rm -f ./manifest.py
 
       - name: Create code directory
         run: mkdir -p ./release/code
 
       - name: Copy .vscode
-        working-directory: ./firmware
         run: |
           if [ -d ".vscode" ]; then
-            cp -R .vscode ${{github.workspace}}/release/code/
+            cp -R .vscode ./release/code/
             echo "Copied .vscode"
           else
             echo ".vscode directory not found — skipping"
           fi
 
       - name: Copy lib
-        working-directory: ./firmware
         run: |
           if [ -d "lib" ]; then
-            cp -R lib ${{github.workspace}}/release/code/
+            cp -R lib ./release/code/
             echo "Copied lib"
           else
             echo "lib directory not found — skipping"
           fi
 
-      - name: Copy config
-        working-directory: ./firmware
-        run: |
-          if [ -d "config" ]; then
-            cp -R config ${{github.workspace}}/release/code/
-            echo "Copied config"
-          else
-            echo "config directory not found — skipping"
-          fi
-
       - name: Copy main.py (if not frozen)
         if: ${{ vars.FREEZE_MAIN != 'true' }}
-        working-directory: ./firmware
         run: |
           if [ -f "main.py" ]; then
-            cp main.py ${{github.workspace}}/release/code/
+            cp main.py ./release/code/
             echo "Copied main.py"
           else
             echo "main.py not found — skipping"
@@ -123,10 +104,9 @@ jobs:
 
       - name: Copy boot.py (if not frozen)
         if: ${{ vars.FREEZE_BOOT != 'true' }}
-        working-directory: ./firmware
         run: |
           if [ -f "boot.py" ]; then
-            cp boot.py ${{github.workspace}}/release/code/
+            cp boot.py ./release/code/
             echo "Copied main.py"
           else
             echo "boot.py not found — skipping"
