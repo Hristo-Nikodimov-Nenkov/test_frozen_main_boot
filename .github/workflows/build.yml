@@ -41,14 +41,15 @@ jobs:
 
       - name: Run MicroPython build container
         run: |
-          docker run --user 1001:1001 \
-          -e PROJECT_DIR=/project \
-          -e PORT=${{vars.PORT}} \
-          -e BOARD=${{vars.BOARD}} \
-          -e FREEZE_BOOT=${{vars.FREEZE_BOOT}} \
-          -e FREEZE_MAIN=${{vars.FREEZE_MAIN}} \
-          -v .:/project \
-          "rav3nh01m/micropython:$IMAGE_TAG"
+          docker run --rm \
+            --user 1001:1001 \
+            -e PROJECT_DIR=/project \
+            -e PORT=${{ vars.PORT }} \
+            -e BOARD=${{ vars.BOARD }} \
+            -e FREEZE_BOOT=${{ vars.FREEZE_BOOT }} \
+            -e FREEZE_MAIN=${{ vars.FREEZE_MAIN }} \
+            -v "$PWD:/project" \
+            rav3nh01m/micropython:${{ steps.docker_tag.outputs.image_tag }}
 
       - name: Copy firmware UF2
         run: |
