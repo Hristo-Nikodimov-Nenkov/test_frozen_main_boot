@@ -46,6 +46,8 @@ jobs:
           BOARD: ${{vars.BOARD}}
           FREEZE_BOOT: ${{vars.FREEZE_BOOT}}
           FREEZE_MAIN: ${{vars.FREEZE_MAIN}}
+        run: /usr/local/bin/build_firmware.sh
+
 
       - name: Copy firmware UF2
         run: |
