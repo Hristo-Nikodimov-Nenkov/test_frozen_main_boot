@@ -60,6 +60,7 @@ jobs:
 
       - name: Copy firmware UF2
         run: |
+          mkdir -p ./release
           cp ./dist/firmware.uf2 ./release/firmware-v${{env.BUILD_VERSION}}.uf2
 
       - name: Create firmware zip
